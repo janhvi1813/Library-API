@@ -1,56 +1,14 @@
-"""
-URL configuration for mylibrary project.
+from django.urls import path
+from . import views
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-# from library.views import borrow_book  # Import from the 'views.py' inside the library app
-
-# from django.contrib import admin
-# from django.urls import path, include
-# from library import views
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/', include('library.urls')),  # Includes the app's urls
-    
-#     # Adding the library views directly to urlpatterns
-#     path('books/', views.list_books, name='list_books'),
-#     path('books/add/', views.add_book, name='add_book'),
-#     path('borrow/', views.borrow_book, name='borrow_book'),
-#     path('return/', views.return_book, name='return_book'),
-#     path('borrowed/<int:borrower_id>/', views.list_borrowed_books, name='list_borrowed_books'),
-#     path('history/<int:borrower_id>/', views.list_borrow_history, name='list_borrow_history'),
-# ]
-from django.contrib import admin
-from django.urls import path, include  # Make sure to import 'include'
-from library import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include('library.urls')),  # Includes the app's URLs
-    path('', views.home),  # Add a path for the root URL
+    path('books/', views.list_books, name='list_books'),  # List all books
+    path('books/add/', views.add_book, name='add_book'),  # Add a new book
+    path('borrow/', views.borrow_book, name='borrow_book'),  # Borrow a book
+    path('api/borrowers/add/', views.add_borrower, name='add_borrower'),
+    path('borrower/<int:borrower_id>/', views.get_borrower, name='get_borrower'),
+    path('borrowed/<int:borrower_id>/', views.borrowed_books, name='borrowed_books'),  # List active (unreturned) books for a borrower
+    path('history/<int:borrower_id>/', views.borrow_history, name='borrow_history'),  # List all books ever borrowed by a borrower, including return status
+    path('return/', views.return_book, name='return_book'),  # Return a borrowed book
 ]
-
-
-
-
-
-
-
-
-
-
-
-
-
